@@ -56,9 +56,7 @@ To achive a sliding window search, I defined three functions to help, 'slidw_win
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a test video output 
-
-(./test_video_output.mp4)
+Here's a test video output 'test_video_output.mp4'
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
@@ -67,17 +65,8 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
+![alt text](/output_images/heatmap.png)
+![alt text](/output_images/heat_map.png)
 
 ---
 
@@ -85,5 +74,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The majority problems I face is in some of the frames, expeacilly the frames contains half of the cars, the classifier cannot identify it as a car. No bounding box draw on it, this is dangerous if we were in a self-driving car because if we wanted to change lane in this time if the car cannot be identified, a crush will be caused. To fix this issue, I think we can take more data of the vehicle in different shape, size and directions to train the classifier to 'learn' this is the the vehicle and draw a bounding box on it. Also, I can try different methods, like YOLO and fast R-CNN to identify the vihicle faster and more accurate.
 
