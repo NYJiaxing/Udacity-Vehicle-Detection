@@ -17,6 +17,7 @@ The goals / steps of this project are the following:
 #### 1. Explain how you extracted HOG features from the training images.
 
 The first step is to create a function called: 'get_hog_features' to get the HOG features from a picture with differetn parameters ('orientations', 'pixels_per_cell', and 'cells_per_block') pre-defined. The follow return pictures with parameters set as orientation = 9, pix_per_cell = 8 and cell_per_block = 2:
+
 ![alt text](/output_images/hog_features.png)
 
 #### 2. Explain how you extract color features from the training images.
@@ -48,21 +49,16 @@ The total accuracy is 99.07%
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+To achive a sliding window search, I defined three functions to help, 'slidw_window' to define an interesting area to do the window search and return a window list, 'draw_boxes', a function to draw bounding boxes and 'search_windows', a function, with help of 'extract_features', to extract features in the windows and send it to the classifier to check if it was a car or not. Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
-![alt text][image3]
-
-#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
-
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
-
-![alt text][image4]
----
+![alt text](/output_images/find_cars.png)
 
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a test video output 
+
+(./test_video_output.mp4)
 
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
