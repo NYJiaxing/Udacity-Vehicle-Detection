@@ -12,28 +12,37 @@ The goals / steps of this project are the following:
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 ---
-### Histogram of Oriented Gradients (HOG)
+### Extract features in respect of color and HOG features
 
-#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how you extracted HOG features from the training images.
 
-The first step is to create a function called: 'get_hog_features' to get the HOG features from a picture with differetn parameters ('orientations', 'pixels_per_cell', and 'cells_per_block') pre-defined. The return pictures show as follow:
-![alt text](/output_images/hog features.png)
-![alt text](/examples/car_not_car.png)
+The first step is to create a function called: 'get_hog_features' to get the HOG features from a picture with differetn parameters ('orientations', 'pixels_per_cell', and 'cells_per_block') pre-defined. The follow return pictures with parameters set as orientation = 9, pix_per_cell = 8 and cell_per_block = 2:
+![alt text](/output_images/hog_features.png)
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+#### 2. Explain how you extract color features from the training images.
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+The second step is to create a function called 'extract_color_features'. It combine the features of image's color and hisgoram features of image as well. The 'extract_color_features' function with pre-defined parameters 'color space' i.e. 'RGB', 'LUV', 'YCrCb'(used in follow pictures) etc., and spatial_size, hist_bins and hist_range. The output of this function is a one dimension array combine the color and hist feature together to send to the classifier.
 
+![alt text](/output_images/car1_color.png)
+![alt text](/output_images/car2_color.png)
 
-![alt text][image2]
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG and color features (and color features if you used them).
 
-#### 2. Explain how you settled on your final choice of HOG parameters.
+In the final choice of the features, I choose three features.
+1. HOG Features. I am using all the 3 channels for extracting the HOG features.
+2. Binned Color Features. spatial_size = (32, 32)
+3. Color Histogram Features. color_space = 'YCrCb'
+4. Orient = 9  
+5. Pix_per_cell = 8  
+6. Cell_per_block = 2  
+7. Hog_channel = 'ALL'  
+9. Spatial_feat = True  
+10. Hist_feat = True  
+11. Hog_feat = True
 
-I tried various combinations of parameters and...
+I create a function called 'extract_features' to extract hog and color features in one function. Then extract car_features and non_car_features with this function and stack them up as X_train sample. Then create y_train samples by set all cat_features as '1' and non_car_features as '0'. The third step is using a standard scaler to transfrom the X_train to scaled_X. Finally, put scaled X_train and y_train into the Linear SVC classifier and 20% of the data as test sample.
 
-#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
-
-I trained a linear SVM using...
+The total accuracy is 99.07%
 
 ### Sliding Window Search
 
